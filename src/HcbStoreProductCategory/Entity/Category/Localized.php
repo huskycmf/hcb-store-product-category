@@ -53,6 +53,20 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
     private $locale;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=200, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", nullable=false)
+     */
+    private $description = '';
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_timestamp", type="datetime", nullable=false)

@@ -22,11 +22,18 @@ class Category implements EntityInterface
     private $id;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     */
+    private $enabled = false;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="enabled", type="integer", nullable=false)
+     * @ORM\Column(name="priority", type="integer", nullable=false)
      */
-    private $enabled = 0;
+    private $priority = 0;
 
     /**
      * @var Category\Localized
@@ -37,106 +44,24 @@ class Category implements EntityInterface
     private $localized = null;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="HcbStoreProduct\Entity\Product", cascade={"persist"})
+     * @ORM\JoinTable(name="store_product_category_has_store_product",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="store_product_category_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="store_product_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $product;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_timestamp", type="datetime", nullable=false)
      */
     private $createdTimestamp;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->localized = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Set createdTimestamp
-     *
-     * @param \DateTime $createdTimestamp
-     * @return Category
-     */
-    public function setCreatedTimestamp($createdTimestamp)
-    {
-        $this->createdTimestamp = $createdTimestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get createdTimestamp
-     *
-     * @return \DateTime
-     */
-    public function getCreatedTimestamp()
-    {
-        return $this->createdTimestamp;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set enabled
-     *
-     * @param int $enabled
-     * @return Category
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Get enabled
-     *
-     * @return int
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Add localized
-     *
-     * @param \HcbStoreProductCategory\Entity\Category\Localized $localized
-     * @return Category
-     */
-    public function addLocalized(\HcbStoreProductCategory\Entity\Category\Localized $localized)
-    {
-        $this->localized[] = $localized;
-
-        return $this;
-    }
-
-    /**
-     * Remove localized
-     *
-     * @param \HcbStoreProductCategory\Entity\Category\Localized $localized
-     */
-    public function removeLocalized(\HcbStoreProductCategory\Entity\Category\Localized $localized)
-    {
-        $this->localized->removeElement($localized);
-    }
-
-    /**
-     * Get localized
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLocalized()
-    {
-        return $this->localized;
-    }
 }
