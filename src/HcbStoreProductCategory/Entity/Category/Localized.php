@@ -23,7 +23,7 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var Category
@@ -33,14 +33,14 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
      *   @ORM\JoinColumn(name="store_product_category_id", referencedColumnName="id")
      * })
      */
-    private $category;
+    protected $category;
 
     /**
      * @var Page
      *
      * @ORM\OneToOne(targetEntity="HcbStoreProductCategory\Entity\Category\Localized\Page", mappedBy="localized")
      */
-    private $page;
+    protected $page;
 
     /**
      * @var Locale
@@ -50,35 +50,35 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
      *   @ORM\JoinColumn(name="locale_id", referencedColumnName="id")
      * })
      */
-    private $locale;
+    protected $locale;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=200, nullable=false)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", nullable=false)
      */
-    private $description = '';
+    protected $description = '';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_timestamp", type="datetime", nullable=false)
      */
-    private $updatedTimestamp;
+    protected $updatedTimestamp;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_timestamp", type="datetime", nullable=false)
      */
-    private $createdTimestamp;
+    protected $createdTimestamp;
 
     /**
      * Get id
@@ -203,5 +203,51 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Localized
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Localized
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

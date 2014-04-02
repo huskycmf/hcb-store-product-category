@@ -22,7 +22,7 @@ class Page extends MappedPage implements EntityInterface
      *   @ORM\JoinColumn(name="store_product_category_localized_id", referencedColumnName="id")
      * })
      */
-    private $localized;
+    protected $localized;
 
     /**
      * Set localized
