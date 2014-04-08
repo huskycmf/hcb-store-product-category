@@ -47,7 +47,7 @@ class Category implements EntityInterface
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="HcbStoreProduct\Entity\Product", cascade={"persist"})
-     * @ORM\JoinTable(name="store_product_category_has_store_product",
+     * @ORM\JoinTable(name="store_product_category_has_product",
      *   joinColumns={
      *     @ORM\JoinColumn(name="store_product_category_id", referencedColumnName="id")
      *   },
