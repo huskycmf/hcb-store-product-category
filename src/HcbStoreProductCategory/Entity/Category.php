@@ -1,6 +1,8 @@
 <?php
 namespace HcbStoreProductCategory\Entity;
 
+use HcBackend\Entity\AliasWiredAwareInterface;
+use HcBackend\Entity\LocalizedInterface;
 use HcCore\Entity\EntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="store_product_category")
  * @ORM\Entity
  */
-class Category implements EntityInterface
+class Category implements EntityInterface, LocalizedInterface, AliasWiredAwareInterface
 {
     /**
      * @var integer
@@ -39,7 +41,6 @@ class Category implements EntityInterface
      * @var Category\Localized
      *
      * @ORM\OneToMany(targetEntity="HcbStoreProductCategory\Entity\Category\Localized", mappedBy="category")
-     * @ORM\OrderBy({"updatedTimestamp" = "DESC"})
      */
     protected $localized = null;
 
@@ -59,20 +60,18 @@ class Category implements EntityInterface
     protected $product;
 
     /**
+     * @var \HcbStoreProductCategory\Entity\Category\Alias
+     *
+     * @ORM\OneToMany(targetEntity="HcbStoreProductCategory\Entity\Category\Alias", mappedBy="category")
+     */
+    private $alias;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_timestamp", type="datetime", nullable=false)
      */
     protected $createdTimestamp;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->localized = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -218,4 +217,47 @@ class Category implements EntityInterface
     {
         return $this->product;
     }
+
+    /**
+     * Add alias
+     *
+     * @param \HcbStoreProductCategory\Entity\Category\Alias $alias
+     * @return Category
+     */
+    public function addAlias(\HcbStoreProductCategory\Entity\Category\Alias $alias)
+    {
+        $this->alias[] = $alias;
+
+        return $this;
+    }
+
+    /**
+     * Remove alias
+     *
+     * @param \HcbStoreProductCategory\Entity\Category\Alias $alias
+     */
+    public function removeAlias(\HcbStoreProductCategory\Entity\Category\Alias $alias)
+    {
+        $this->alias->removeElement($alias);
+    }
+
+    /**
+     * Get alias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->localized = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->alias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

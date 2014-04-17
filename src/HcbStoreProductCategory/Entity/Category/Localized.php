@@ -67,20 +67,6 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
     protected $description = '';
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_timestamp", type="datetime", nullable=false)
-     */
-    protected $updatedTimestamp;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_timestamp", type="datetime", nullable=false)
-     */
-    protected $createdTimestamp;
-
-    /**
      * Get id
      *
      * @return integer 
@@ -88,52 +74,6 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set updatedTimestamp
-     *
-     * @param \DateTime $updatedTimestamp
-     * @return Localized
-     */
-    public function setUpdatedTimestamp($updatedTimestamp)
-    {
-        $this->updatedTimestamp = $updatedTimestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedTimestamp
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedTimestamp()
-    {
-        return $this->updatedTimestamp;
-    }
-
-    /**
-     * Set createdTimestamp
-     *
-     * @param \DateTime $createdTimestamp
-     * @return Localized
-     */
-    public function setCreatedTimestamp($createdTimestamp)
-    {
-        $this->createdTimestamp = $createdTimestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get createdTimestamp
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedTimestamp()
-    {
-        return $this->createdTimestamp;
     }
 
     /**
