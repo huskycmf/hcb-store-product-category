@@ -6,6 +6,25 @@ return array(
     ),
     'may_terminate' => false,
     'child_routes' => array(
+        'list' => array(
+            'type' => 'method',
+            'options' => array(
+                'verb' => 'get'
+            ),
+            'may_terminate' => false,
+            'child_routes' => array(
+                'show' => array(
+                    'type' => 'XRequestedWith',
+                    'options' => array(
+                        'with' => 'XMLHttpRequest',
+                        'defaults' => array(
+                            'controller' =>
+                                'HcbStoreProductCategory-Controller-Collection-List'
+                        )
+                    )
+                )
+            )
+        ),
         'resource' => array(
             'type' => 'segment',
             'options' => array(
@@ -75,24 +94,6 @@ return array(
                         'verb' => 'post',
                         'defaults' => array(
                             'controller' => 'HcbStoreProductCategory-Controller-Collection-Delete'
-                        )
-                    )
-                )
-            )
-        ),
-        'list' => array(
-            'type' => 'method',
-            'options' => array(
-                'verb' => 'get'
-            ),
-            'may_terminate' => false,
-            'child_routes' => array(
-                'show' => array(
-                    'type' => 'XRequestedWith',
-                    'options' => array(
-                        'with' => 'XMLHttpRequest',
-                        'defaults' => array(
-                            'controller' => 'HcbStoreProductCategory-Controller-Collection-List'
                         )
                     )
                 )
