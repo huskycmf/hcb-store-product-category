@@ -17,7 +17,8 @@ class Page extends MappedPage implements EntityInterface
     /**
      * @var Localized
      *
-     * @ORM\OneToOne(targetEntity="HcbStoreProductCategory\Entity\Category\Localized", inversedBy="page")
+     * @ORM\OneToOne(targetEntity="HcbStoreProductCategory\Entity\Category\Localized",
+     *               inversedBy="page", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="store_product_category_localized_id", referencedColumnName="id")
      * })

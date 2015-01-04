@@ -38,7 +38,9 @@ class Localized implements EntityInterface, PageBindInterface, LocaleBindInterfa
     /**
      * @var Page
      *
-     * @ORM\OneToOne(targetEntity="HcbStoreProductCategory\Entity\Category\Localized\Page", mappedBy="localized")
+     * @ORM\OneToOne(targetEntity="HcbStoreProductCategory\Entity\Category\Localized\Page",
+     *               mappedBy="localized",
+     *               cascade={"persist"})
      */
     protected $page;
 

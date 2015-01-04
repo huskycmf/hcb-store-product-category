@@ -42,7 +42,7 @@ class Resource implements ExtractorInterface
     public function extract($category)
     {
         if (!$category instanceof CategoryEntity) {
-            throw new InvalidArgumentException("Expected HcbStoreProduct\\Entity\\Product object, invalid object given");
+            throw new InvalidArgumentException("Expected HcbStoreProductCategory\\Entity\\Category object, invalid object given");
         }
 
         /* @var $localizedEntity CategoryLocalizedEntity */

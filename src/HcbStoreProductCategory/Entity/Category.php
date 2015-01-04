@@ -1,6 +1,8 @@
 <?php
 namespace HcbStoreProductCategory\Entity;
 
+use HcBackend\Entity\AliasBindAwareInterface;
+use HcBackend\Entity\AliasBindInterface;
 use HcBackend\Entity\AliasWiredAwareInterface;
 use HcBackend\Entity\LocalizedInterface;
 use HcCore\Entity\EntityInterface;
@@ -12,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="store_product_category")
  * @ORM\Entity
  */
-class Category implements EntityInterface, LocalizedInterface, AliasWiredAwareInterface
+class Category implements EntityInterface, LocalizedInterface,
+                          AliasWiredAwareInterface, AliasBindAwareInterface
 {
     /**
      * @var integer
@@ -221,10 +224,10 @@ class Category implements EntityInterface, LocalizedInterface, AliasWiredAwareIn
     /**
      * Add alias
      *
-     * @param \HcbStoreProductCategory\Entity\Category\Alias $alias
+     * @param AliasBindInterface $alias
      * @return Category
      */
-    public function addAlias(\HcbStoreProductCategory\Entity\Category\Alias $alias)
+    public function addAlias(AliasBindInterface $alias)
     {
         $this->alias[] = $alias;
 

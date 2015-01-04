@@ -1,0 +1,57 @@
+<form data-dojo-attach-point="containerNode">
+    <div class="row">
+        <label>${!_t.titleLabel}</label>
+        <input class="${baseClass}Title"
+               data-dojo-type="dijit/form/ValidationTextBox"
+               data-dojo-props='name:"title", required: "true"' />
+    </div>
+
+    <div class="row">
+        <label>${!_t.aliasLabel}</label>
+        <input class="${baseClass}Alias"
+               data-dojo-type="dijit/form/ValidationTextBox"
+               data-dojo-props='name:"alias", required: "true"' />
+    </div>
+
+    <div class="row">
+        <label>${!_t.metaTitleLabel}</label>
+        <input class="${baseClass}Title"
+               data-dojo-type="dijit/form/Textarea"
+               data-dojo-props='name:"pageTitle", maxLength: 300' />
+    </div>
+
+    <div class="row">
+        <label>${!_t.metaDescriptionLabel}</label>
+        <input class="${baseClass}Description"
+               data-dojo-type="dijit/form/Textarea"
+               data-dojo-props='name:"pageDescription", maxLength: 300' />
+    </div>
+
+    <div class="row">
+        ${!_t.metaContentLabel}
+        <div class="${baseClass}Content"
+               data-dojo-type="dojo-ckeditor/Editor"
+               data-dojo-props='name:"pageContent"'></div>
+    </div>
+
+    <div class="row">
+        <label>${!_t.metaKeywordsLabel}</label>
+        <input class="${baseClass}Keywords"
+               data-dojo-type="dijit/form/Textarea"
+               data-dojo-props='name:"pageKeywords", maxLength: 300' />
+    </div>
+
+    <div class="row">
+        <label>${!_t.prioLabel}</label>
+        <input class="${baseClass}Prio"
+               data-dojo-type="dijit/form/ValidationTextBox"
+               data-dojo-props='name:"prio"' />
+    </div>
+
+    <input class="${baseClass}AddButton"
+           data-dojo-type="dojo-common/form/BusyButton"
+           data-dojo-attach-point="saveButtonWidget"
+           data-dojo-attach-event="onClick: save"
+           data-dojo-props='name:"send",
+                            label:"${!_t.addButton}"' />
+</form>

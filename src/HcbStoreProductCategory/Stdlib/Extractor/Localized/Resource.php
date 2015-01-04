@@ -1,10 +1,10 @@
 <?php
-namespace HcbStoreProduct\Stdlib\Extractor\Localized;
+namespace HcbStoreProductCategory\Stdlib\Extractor\Localized;
 
 use HcBackend\Service\Alias\DetectAlias;
 use Zf2Libs\Stdlib\Extractor\ExtractorInterface;
 use Zf2Libs\Stdlib\Extractor\Exception\InvalidArgumentException;
-use HcbStoreProduct\Entity\Product\Localized as ProductLocalizedEntity;
+use HcbStoreProductCategory\Entity\Category\Localized as LocalizedEntity;
 use HcBackend\Stdlib\Extractor\Page\Extractor as PageExtractor;
 
 class Resource implements ExtractorInterface
@@ -32,58 +32,33 @@ class Resource implements ExtractorInterface
     /**
      * Extract values from an object
      *
-     * @param  ProductLocalizedEntity $productLocalized
+     * @param  LocalizedEntity $localizedEntity
+     *
      * @throws InvalidArgumentException
      * @return array
      */
-    public function extract($productLocalized)
+    public function extract( $localizedEntity)
     {
-        if (!$productLocalized instanceof ProductLocalizedEntity) {
+        if ( ! $localizedEntity instanceof LocalizedEntity) {
             throw new InvalidArgumentException
-                        ("Expected HcbStoreProduct\\Entity\\Product\\Localized object, invalid object given");
-        }
-
-        $createdTimestamp = $productLocalized->getProduct()->getCreatedTimestamp();
-        if ($createdTimestamp) {
-            $createdTimestamp = $createdTimestamp->format('Y-m-d H:i:s');
-        }
-
-        $updatedTimestamp = $productLocalized->getProduct()->getUpdatedTimestamp();
-        if ($updatedTimestamp) {
-            $updatedTimestamp = $updatedTimestamp->format('Y-m-d H:i:s');
+                        ("Expected HcbStoreProductCategory\\Entity\\Category\\Localized object,
+                          invalid object given");
         }
 
         $aliasWireEntity = $this->detectAlias
-                                ->detect($productLocalized->getProduct());
+                                ->detect( $localizedEntity->getCategory());
 
-        $replaceProduct = $productLocalized->getProduct()
-                                           ->getProduct();
-        $characteristics = $productLocalized->getCharacteristic();
-        $attributes = $productLocalized->getProduct()->getAttribute();
-//        \Zf2Libs\Debug\Utility::dump( $attributes->count() );
 
-        $localData = array('id'=>$productLocalized->getId(),
-                           'locale'=>$productLocalized->getLocale()->getLocale(),
+        $localData = array('id'=> $localizedEntity->getId(),
+                           'locale'=> ($localizedEntity->getLocale() ? $localizedEntity->getLocale()->getLocale() : ''),
                            'alias'=>(is_null($aliasWireEntity) ? '' :
                                      $aliasWireEntity->getAlias()->getName()),
-                           'title'=>$productLocalized->getTitle(),
-                           'description'=>$productLocalized->getDescription(),
-                           'shortDescription'=>$productLocalized->getShortDescription(),
-                           'extraDescription'=>$productLocalized->getExtraDescription(),
-                           'status' => $productLocalized->getProduct()->getStatus(),
-                           'price' => $productLocalized->getProduct()->getPrice(),
-                           'characteristics[]'=>
-                               $characteristics->map(function ($characteristic){return $characteristic->getName().":".$characteristic->getValue();})->toArray(),
-                           'attributes[]'=>
-                               $attributes->map(function ($attribute){return $attribute->getName();})->toArray(),
-                           'replaceProduct' => (is_null($replaceProduct) ?
-                                                null : $replaceProduct->getId()),
-                           'priceDeal' => $productLocalized->getProduct()->getPriceDeal(),
-                           'createdTimestamp'=>$createdTimestamp,
-                           'updatedTimestamp'=>$updatedTimestamp);
+                           'title'=> $localizedEntity->getTitle(),
+                           'prio'=> $localizedEntity->getCategory()->getPriority());
 
-        if (($pageEntity = $productLocalized->getPage())) {
+        if (($pageEntity = $localizedEntity->getPage())) {
             $localData = array_merge($localData, $this->pageExtractor->extract($pageEntity));
+            $localData['pageContent'] = $pageEntity->getContent();
         }
 
         return $localData;

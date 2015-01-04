@@ -1,6 +1,7 @@
 <?php
 namespace HcbStoreProductCategory\Entity\Category;
 
+use HcBackend\Entity\AliasBindInterface;
 use HcBackend\Entity\AliasWiredInterface;
 use HcCore\Entity\EntityInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="store_product_category_has_alias")
  * @ORM\Entity
  */
-class Alias implements EntityInterface, AliasWiredInterface
+class Alias implements EntityInterface,
+                       AliasWiredInterface,
+                       AliasBindInterface
 {
     /**
      * @var \HcbStoreProduct\Entity\Product\Alias
