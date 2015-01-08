@@ -8,7 +8,7 @@ define([
     "dojo-common/form/BusyButton",
     "dijit/form/ValidationTextBox",
     "dijit/form/Textarea",
-    "dojo-ckeditor/Editor"
+    "hc-backend/Editor"
 ], function(declare, Form, _HasPageFieldsMixin,
             _WidgetsInTemplateMixin, template, translate) {
     return declare([ Form, _HasPageFieldsMixin, _WidgetsInTemplateMixin ], {
