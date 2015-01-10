@@ -63,21 +63,7 @@ class UpdateService
 
             $categoryEntity = $localizedEntity->getCategory();
 
-            $this->pageBinderService->bind($localizedData,
-                                           $localizedEntity,
-                                           'HcbStoreProductCategory\Entity\Category\Localized\Page');
-
             $localizedEntity->setTitle($localizedData->getTitle());
-
-            if (is_null($localizedEntity->getPage())) {
-                $pageEntity = new PageEntity();
-                $this->entityManager->persist($pageEntity);
-                $pageEntity->setLocalized($localizedEntity);
-                $localizedEntity->setPage($pageEntity);
-            }
-
-            $localizedEntity->getPage()->setUrl(null);
-            $localizedEntity->getPage()->setContent($localizedData->getMetaContent());
             $categoryEntity->setPriority($localizedData->getPrio());
 
             $categoryAliasEntity = new CategoryAliasEntity();
@@ -91,7 +77,20 @@ class UpdateService
 
             $categoryEntity->setEnabled(true);
 
-            $this->entityManager->persist($localizedEntity);
+            $this->pageBinderService->bind($localizedData,
+                                            $localizedEntity,
+                                            'HcbStoreProductCategory\Entity\Category\Localized\Page');
+
+            if (is_null($localizedEntity->getPage())) {
+                $pageEntity = new PageEntity();
+                $localizedEntity->setPage($pageEntity);
+                $pageEntity->setLocalized($localizedEntity);
+            } else {
+                $localizedEntity->getPage()->setLocalized($localizedEntity);
+            }
+
+            $localizedEntity->getPage()->setUrl(null);
+            $localizedEntity->getPage()->setContent($localizedData->getMetaContent());
 
             $this->entityManager->flush();
             $this->entityManager->commit();
